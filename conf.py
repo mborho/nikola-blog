@@ -10,7 +10,7 @@ BLOG_AUTHOR = "mbo"
 BLOG_TITLE = "Stacktrace"
 # This is the main URL for your site. It will be used
 # in a prominent link
-SITE_URL = "http://blog.borho.net/"
+SITE_URL = "http://io.drigger.com/"
 # This is the URL where nikola's output will be deployed.
 # If not set, defaults to SITE_URL
 # BASE_URL = "http://getnikola.com/"
@@ -64,13 +64,12 @@ NAVIGATION_LINKS = {
         ('/archive.html', 'Archives'),
         ('/categories/index.html', 'Tags'),
         ('/rss.xml', 'RSS'),
-    ),
-
+    )
 }
-##NAVIGATION_LINKS = {
+#NAVIGATION_LINKS = {
 #    DEFAULT_LANG: (
 #        ('/index.html', 'Home', 'icon-home'),
-###        ('/archive.html', 'Archives', 'icon-folder-open-alt'),
+#        ('/archive.html', 'Archives', 'icon-folder-open-alt'),
 #        ('/categories/index.html', 'Tags', 'icon-tags'),
 #        ('/rss.xml', 'RSS', 'icon-rss'),
 #        #('http://getnikola.com', 'About me', 'icon-user'),
@@ -194,7 +193,7 @@ COMPILERS = {
 # relative URL.
 #
 # If you don't need any of these, just set to []
-# REDIRECTIONS = []
+#REDIRECTIONS = [("rss.php", "rss.xml")]
 
 # Commands to execute to deploy. Can be anything, for example,
 # you may use rsync:
@@ -202,6 +201,7 @@ COMPILERS = {
 # And then do a backup, or ping pingomatic.
 # To do manual deployment, set it to []
 # DEPLOY_COMMANDS = []
+DEPLOY_COMMANDS = ["nikola build", "(cd output; git add *; git commit . -m \"update\"; git push origin master)"] 
 
 # Where the output site should be located
 # If you don't use an absolute path, it will be considered as relative
@@ -323,21 +323,23 @@ LICENSE = ""
 
 # A small copyright notice for the page footer (in HTML).
 # Default is ''
-CONTENT_FOOTER = 'Contents &copy; {date}         <a href="mailto:{email}">{author}</a> - Powered by         <a href="http://getnikola.com">Nikola</a>         {license}'
+SUBTOME = """<input type="button" onclick="(function(){var z=document.createElement('script');z.src='https://www.subtome.com/load.js';document.body.appendChild(z);})()" value="Subscribe">"""
+CONTENT_FOOTER = 'Contents &copy; {date}         <a href="mailto:{email}">{author}</a> - Powered by         <a href="http://getnikola.com">Nikola</a> {subtome}        {license}'
 CONTENT_FOOTER = CONTENT_FOOTER.format(email=BLOG_EMAIL,
                                        author=BLOG_AUTHOR,
                                        date=time.gmtime().tm_year,
+                                       subtome=SUBTOME, 
                                        license=LICENSE)
 
 # To use comments, you can choose between different third party comment
 # systems, one of "disqus", "livefyre", "intensedebate", "moot",
 #                 "googleplus" or "facebook"
-# COMMENT_SYSTEM = "disqus"
+COMMENT_SYSTEM = "disqus"
 # And you also need to add your COMMENT_SYSTEM_ID which
 # depends on what comment system you use. The default is
 # "nikolademo" which is a test account for Disqus. More information
 # is in the manual.
-# COMMENT_SYSTEM_ID = "nikolademo"
+COMMENT_SYSTEM_ID = "drigger"
 
 # Enable annotations using annotateit.org?
 # If set to False, you can still enable them for individual posts and pages
@@ -432,7 +434,7 @@ CONTENT_FOOTER = CONTENT_FOOTER.format(email=BLOG_EMAIL,
 
 # Social buttons. This is sample code for AddThis (which was the default for a
 # long time). Insert anything you want here, or even make it empty.
-# SOCIAL_BUTTONS_CODE = """
+#SOCIAL_BUTTONS_CODE = """
 # <!-- Social buttons -->
 # <div id="addthisbox" class="addthis_toolbox addthis_peekaboo_style addthis_default_style addthis_label_style addthis_32x32_style">
 # <a class="addthis_button_more">Share</a>
@@ -445,7 +447,7 @@ CONTENT_FOOTER = CONTENT_FOOTER.format(email=BLOG_EMAIL,
 # <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f7088a56bb93798"></script>
 # <!-- End of social buttons -->
 # """
-
+SOCIAL_BUTTONS_CODE =""
 # Hide link to source for the posts?
 # HIDE_SOURCELINK = False
 # Copy the source files for your pages?
@@ -540,7 +542,7 @@ CONTENT_FOOTER = CONTENT_FOOTER.format(email=BLOG_EMAIL,
 # EXTRA_HEAD_DATA = ""
 # Google analytics or whatever else you use. Added to the bottom of <body>
 # in the default template (base.tmpl).
-# BODY_END = ""
+#BODY_END = """<input type="button" onclick="(function(){var z=document.createElement('script');z.src='https://www.subtome.com/load.js';document.body.appendChild(z);})()" value="Subscribe">"""
 
 # The possibility to extract metadata from the filename by using a
 # regular expression.
